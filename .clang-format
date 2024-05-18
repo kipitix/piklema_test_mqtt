@@ -1,0 +1,112 @@
+﻿# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+# file-version: 1.0
+
+# The code between a comment // clang-format off or /* clang-format off */ up to a comment // clang-format on or /* clang-format on */ will not be formatted. 
+# A colon (:) and additional text may follow // clang-format off or // clang-format on to explain why clang-format is turned off or back on.
+
+
+UseTab: Always
+TabWidth: 4
+IndentWidth: 4
+ContinuationIndentWidth: 4
+
+# Clang-format 16 version required, currently not available in VS by default
+#InsertNewlineAtEOF: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+# Horizontally align operands of binary and ternary expressions.
+AlignOperands: Align
+
+# Horizontally aligns arguments after an open bracket.
+AlignAfterOpenBracket: DontAlign
+
+# The way to wrap binary operators.
+BreakBeforeBinaryOperators: NonAssignment
+
+# Parse and format C++ constructs compatible with this standard.
+Standard: c++17
+
+AllowShortIfStatementsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+IndentCaseLabels: false
+
+# A column limit of 0 means that there is no column limit. In this case, clang-format will respect the input’s line breaking decisions within statements unless they contradict other rules.
+ColumnLimit: 0
+#SeparateDefinitionBlocks: Always
+SeparateDefinitionBlocks: Leave
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+EmptyLineBeforeAccessModifier: LogicalBlock
+
+# If true, clang-format adds missing namespace end comments for namespaces and fixes invalid existing ones.
+FixNamespaceComments: true
+
+#The maximal number of unwrapped lines that a short namespace spans. Defaults to 1.
+# This determines the maximum length of short namespaces by counting unwrapped lines (i.e. containing neither opening nor closing namespace brace) and makes “FixNamespaceComments” omit adding end comments for those.
+ShortNamespaceLines: 20
+
+MaxEmptyLinesToKeep: 3
+
+# If true, format braced lists as best suited for C++11 braced lists.
+# true:                                  false:
+# vector<int> x{1, 2, 3, 4};     vs.     vector<int> x{ 1, 2, 3, 4 };
+Cpp11BracedListStyle: false
+
+# Pointer and reference alignment style.
+PointerAlignment: Right
+
+PackConstructorInitializers: Never
+BreakConstructorInitializers: AfterColon
+
+AllowShortLambdasOnASingleLine: Inline
+
+# If true, a space will be inserted before a C++11 braced list used to initialize an object (after the preceding identifier or type).
+SpaceBeforeCpp11BracedList: true
+SpaceBeforeRangeBasedForLoopColon: false
+SpaceInEmptyBlock: true
+
+SortIncludes: CaseInsensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  # ui headers
+  - Regex:           '"ui_[[:alnum:].]+h"'
+    Priority:        0
+    CaseSensitive:   true
+  # Qt headers
+  - Regex:           '<Q[:alnum:]+>'
+    Priority:        2
+    SortPriority:    2
+    CaseSensitive:   true
+  # Standard headers in <>
+  - Regex:           '<[[:alnum:]/_-]+>'
+    Priority:        1
+  # External headers
+  - Regex:           '<[[:alnum:]/_-]+\.(h|hpp|hxx)>'
+    Priority:        3
+    CaseSensitive:   false
+  # Local headers in ""
+  - Regex:           '"[[:alnum:]/\._-]*"'
+    Priority:        4
+
+StatementMacros:
+  - Q_UNUSED
